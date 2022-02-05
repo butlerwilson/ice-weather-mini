@@ -1,7 +1,27 @@
 {
     "pages": [
-        "pages/home/index"
+        "pages/home/index",
+        "pages/me/index",
+        "pages/like/index"
     ],
+    "tabBar": {
+        "custom": true,
+        "color": "#7A7E83",
+        "selectedColor": "#3cc51f",
+        "borderStyle": "black",
+        "backgroundColor": "#ffffff",
+        "list": [
+            {
+                "pagePath": "pages/home/index"
+            },
+            {
+                "pagePath": "pages/like/index"
+            },
+            {
+                "pagePath": "pages/me/index"
+            }
+        ]
+    },
     "window": {
         "backgroundColor": "#F6F6F6",
         "backgroundTextStyle": "light",
@@ -9,6 +29,5 @@
         "navigationBarTitleText": "首页",
         "navigationBarTextStyle": "black"
     },
-    "sitemapLocation": "sitemap.json",
-    "style": "v2"
+    "sitemapLocation": "sitemap.json"
 }

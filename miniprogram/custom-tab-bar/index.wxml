@@ -1,0 +1,17 @@
+<cover-view class="tab-bar">
+  <cover-view 
+    wx:for="{{list}}" 
+    wx:key="index" 
+    class="tab-bar-item {{selected === index ? 'active' : ''}} {{item.color}}" 
+    data-path="{{item.pagePath}}" 
+    data-index="{{index}}" 
+    bindtap="switchTab"
+  >
+    <!-- 图标 -->
+    <cover-view
+      class="iconfont {{item.icon}} icon"
+    />
+    <!-- 文字 -->
+    <cover-view class="text">{{item.text}}</cover-view>
+  </cover-view>
+</cover-view>
