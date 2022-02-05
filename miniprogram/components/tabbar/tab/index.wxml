@@ -1,0 +1,3 @@
+<view class="tabbar-item">
+  <slot></slot>
+</view>

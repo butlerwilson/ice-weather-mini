@@ -1,0 +1,48 @@
+@import "../../../styles/iconfont.wxss";
+
+/* 页面样式 */
+swiper {
+  height: 100vh;
+  width: 100vw;
+}
+
+/* tabbar 样式 */
+.tab-bar {
+  padding: 0.5em 1em;
+  padding-bottom: env(safe-area-inset-bottom, 00.3em);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tab-bar-item {
+  border-radius: 50px;
+  transition: background-color 0.4s linear;
+  margin: 0 0.5em;
+  padding: 0 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  font-size: 1.2em;
+}
+
+.tab-name{
+  font-weight: bold;
+  overflow: hidden;
+  max-width: 0;
+}
+
+.tab-bar-item.active .tab-name {
+  margin-left: 10px;
+  max-width: 200px;
+  transition: max-width 1s linear;
+}

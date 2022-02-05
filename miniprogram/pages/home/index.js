@@ -2,6 +2,7 @@ import qweather from "../../utils/qweather";
 
 Component({
   data: {},
+
   onLoad(options) {
     qweather
       .getDisasterWaring("110.35,20.02")
@@ -12,6 +13,7 @@ Component({
         console.log(err);
       });
   },
+
   pageLifetimes: {
     show() {
       if (typeof this.getTabBar === "function" && this.getTabBar()) {
