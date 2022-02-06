@@ -1,29 +1,20 @@
 <view>
   <!-- 轮播图实现页面切换 -->
   <swiper current="{{selected}}" bindchange="swiperChage">
-    <swiper-item
-      wx:for="{{pages}}"
-      wx:key="index"
-    >
+    <swiper-item wx:for="{{pages}}" wx:key="index">
       <!-- 页面 -->
       <slot name="{{item.key}}" />
     </swiper-item>
   </swiper>
   <!-- 底部 tabbar -->
-  <cover-view class="tab-bar">
-    <cover-view
-      wx:for="{{pages}}"
-      wx:key="index"
-      class="tab-bar-item {{selected === index ? 'active' : ''}} {{item.color}}"
-      style="{{selected === index ? 'color: ' + item.color + ';background-color: ' + item.bgColor:''}}"
-      data-index="{{index}}"
-      bindtap="switchTab"
-    >
-      <!-- 图标 -->
-      <cover-view class="iconfont {{item.icon}} icon" />
-      <!-- 文字 -->
-      <cover-view class="tab-name">{{item.name}}</cover-view>
+  <cover-view class="tab-bar-container">
+    <cover-view class="tab-bar">
+      <cover-view wx:for="{{pages}}" wx:key="index" class="tab-bar-item {{selected === index ? 'active' : ''}} {{item.color}}" style="{{selected === index ? 'color: ' + item.color + ';background-color: ' + item.bgColor:''}}" data-index="{{index}}" bindtap="switchTab">
+        <!-- 图标 -->
+        <cover-view class="iconfont {{item.icon}} icon" />
+        <!-- 文字 -->
+        <cover-view class="tab-name">{{item.name}}</cover-view>
+      </cover-view>
     </cover-view>
   </cover-view>
 </view>
-
