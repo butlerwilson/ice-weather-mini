@@ -1,0 +1,23 @@
+@import '../../../styles/iconfont.wxss';
+
+.nav-bar-container {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(50px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.nav-bar {
+  padding: 0.5em 1em;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.nav-icon {
+  margin-right: 0.5em;
+  font-size: 1.2em;
+}

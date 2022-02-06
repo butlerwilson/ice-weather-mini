@@ -1,16 +1,9 @@
 @import "../../../styles/iconfont.wxss";
 
-/* 页面样式 */
-swiper {
-  height: 100vh;
-  width: 100vw;
-}
-
-/* tabbar 样式 */
 .tab-bar-container {
   padding-bottom: env(safe-area-inset-bottom);
   background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(50px);
   position: fixed;
   bottom: 0;
   left: 0;
@@ -19,7 +12,7 @@ swiper {
 }
 
 .tab-bar {
-  padding: 0.5em  1em;
+  padding: 0.5em 1em;
   height: inherit;
   box-sizing: border-box;
   display: flex;
@@ -40,7 +33,7 @@ swiper {
   font-size: 1.2em;
 }
 
-.tab-name{
+.tab-name {
   font-weight: bold;
   overflow: hidden;
   max-width: 0;

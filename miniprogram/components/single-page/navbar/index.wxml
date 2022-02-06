@@ -1,0 +1,10 @@
+<cover-view class="nav-bar-container" style="padding-top:{{statusBarHeight}}px;">
+  <cover-view class="nav-bar" style="height: {{navHeight}}px">
+    <cover-view
+      wx:if="{{navIcon}}"
+      class="iconfont {{navIcon}} nav-icon"
+      bindtap="clickNavIcon"
+    />
+    <cover-view wx:if="{{navTitle}}">{{navTitle}}</cover-view>
+  </cover-view>
+</cover-view>

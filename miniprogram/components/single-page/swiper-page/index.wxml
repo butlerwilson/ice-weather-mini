@@ -1,0 +1,23 @@
+<!-- 轮播图实现页面切换 -->
+<swiper
+  class="swiper-page"
+  current="{{selected}}"
+  bindchange="changeSelected"
+  easing-function="{{easingFunction}}"
+  duration="{{duration}}"
+>
+  <swiper-item wx:for="{{pages}}" wx:key="index">
+    <!-- 页面 -->
+    <slot name="{{item.key}}"></slot>
+  </swiper-item>
+</swiper>
+
+<!-- 导航栏 -->
+<nav-bar
+  navIcon="{{pages[selected].navIcon}}"
+  navTitle="{{pages[selected].navTitle}}"
+  bind:clickNavIcon="clickNavIcon"
+/>
+
+<!-- 底部 tabbar -->
+<tab-bar pages="{{pages}}" selected="{{selected}}" bind:switchTab="changeSelected" />

@@ -12,7 +12,6 @@
   font-family: "iconfont";
 }
 
-/* tabbar */
 .home::before {
   content: "\e6b8";
 }
@@ -23,4 +22,8 @@
 
 .me::before {
   content: "\e736";
+}
+
+.search::before {
+  content: "\e65c";
 }

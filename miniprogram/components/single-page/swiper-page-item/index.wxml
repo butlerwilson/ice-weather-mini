@@ -1,0 +1,3 @@
+<view class="swiper-page-item">
+  <slot></slot>
+</view>
