@@ -2,6 +2,7 @@
 
 .nav-bar-container {
   background: rgba(255, 255, 255, 0.7);
+  z-index: 10;
   backdrop-filter: blur(50px);
   position: fixed;
   top: 0;

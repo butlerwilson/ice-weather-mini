@@ -1,9 +1,10 @@
-@import "../../../styles/iconfont.wxss";
+@import '../../../styles/iconfont.wxss';
 
 .tab-bar-container {
   padding-bottom: env(safe-area-inset-bottom);
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(50px);
+  z-index: 10;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -35,6 +36,8 @@
 
 .tab-name {
   font-weight: bold;
+  line-height: 1em;
+  height: 1em;
   overflow: hidden;
   max-width: 0;
 }
@@ -42,5 +45,5 @@
 .tab-bar-item.active .tab-name {
   margin-left: 10px;
   max-width: 200px;
-  transition: max-width 1s linear;
+  transition: max-width 0.4s linear;
 }
