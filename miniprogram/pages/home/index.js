@@ -1,6 +1,7 @@
 import openWeather from '../../utils/weather/openweather';
 import qweather from '../../utils/weather/qweather';
 import { formatTime } from '../../utils/time';
+import AqiColor from '../../utils/weather/aqicolor';
 
 Page({
   data: {
@@ -10,11 +11,16 @@ Page({
     condition: '小雨',
     feel: '13°',
     AQI: '优',
-    AQIColor: '#1bd1a5',
+    AQIColor: '',
   },
   onLoad() {
     qweather.getAllweather('110.32,20.03').then(res => {
       console.log(res);
+    });
+
+    const { activeColor } = AqiColor.getColorByAqi(20);
+    this.setData({
+      AQIColor: activeColor,
     });
   },
   clickLeftIcon() {
