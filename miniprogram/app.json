@@ -2,25 +2,12 @@
     "pages": [
         "pages/home/index",
         "pages/like/index",
-        "pages/me/index"
+        "pages/setting/index",
+        "pages/aqi/index"
     ],
     "window": {
         "navigationStyle": "custom",
         "navigationBarTextStyle": "black"
-    },
-    "tabbar": {
-        "custum": true,
-        "list": [
-            {
-                "pagePath": "pages/home/index"
-            },
-            {
-                "pagePath": "pages/like/index"
-            },
-            {
-                "pagePath": "pages/me/index"
-            }
-        ]
     },
     "sitemapLocation": "sitemap.json"
 }

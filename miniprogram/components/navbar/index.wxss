@@ -1,0 +1,40 @@
+@import '../../styles/iconfont.wxss';
+
+.nav-bar-container {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.nav-bar {
+  padding-left: 1em;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.nav-icon-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.nav-icon {
+  margin-right: 0.5em;
+  font-size: 1.5em;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.navTitle {
+  font-weight: bold;
+}
+
+.subTitle {
+  font-size: 0.6em;
+}

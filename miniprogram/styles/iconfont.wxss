@@ -1,29 +1,30 @@
 @font-face {
-  font-family: "iconfont"; /* project id 3169280 */
-  src: url("");
-  src: url("?#iefix") format("embedded-opentype"),
-    url("//at.alicdn.com/t/font_3169280_dfwnugwzvp.woff2") format("woff2"),
-    url("//at.alicdn.com/t/font_3169280_dfwnugwzvp.woff") format("woff"),
-    url("//at.alicdn.com/t/font_3169280_dfwnugwzvp.ttf") format("truetype"),
-    url("#iconfont") format("svg");
+  font-family: 'iconfont';  /* Project id 3169280 */
+  src: url('//at.alicdn.com/t/font_3169280_0pvwn96390r8.woff2?t=1644235021474') format('woff2'),
+       url('//at.alicdn.com/t/font_3169280_0pvwn96390r8.woff?t=1644235021474') format('woff'),
+       url('//at.alicdn.com/t/font_3169280_0pvwn96390r8.ttf?t=1644235021474') format('truetype');
 }
 
 .iconfont {
   font-family: "iconfont";
 }
 
-.home::before {
-  content: "\e6b8";
-}
-
-.like::before {
-  content: "\e669";
-}
-
-.me::before {
-  content: "\e736";
-}
-
 .search::before {
-  content: "\e65c";
+  content: "\e60e";
+}
+
+.setting::before {
+  content: "\e60f";
+}
+
+.leaf::before {
+  content: "\e69f";
+}
+
+.right::before {
+  content: "\e85d";
+}
+
+.left::before {
+  content: "\e86a";
 }

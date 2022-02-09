@@ -1,3 +1,5 @@
+import { getNavBarInfo } from './utils/systemInfo';
+
 App({
   onLaunch: function () {
     if (!wx.cloud) {
@@ -8,6 +10,11 @@ App({
       });
     }
 
-    this.globalData = {};
-  }
+    // 获取导航栏和状态栏高度
+    const { navHeight, statusBarHeight } = getNavBarInfo();
+    this.globalData = {
+      navHeight,
+      statusBarHeight,
+    };
+  },
 });

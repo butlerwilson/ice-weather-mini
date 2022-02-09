@@ -1,0 +1,22 @@
+<view class="nav-bar-container" style="padding-top:{{statusBarHeight}}px; color: {{textColor}}">
+  <view class="nav-bar" style="height: {{navHeight}}px">
+    <!-- 导航栏左边图标 -->
+    <view class="nav-icon-container">
+      <view
+        wx:if="{{navLeftIcon}}"
+        class="nav-icon iconfont {{navLeftIcon}}"
+        bindtap="clickLeftIcon"
+      />
+      <view
+        wx:if="{{navRightIcon}}"
+        class="nav-icon iconfont {{navRightIcon}}"
+        bindtap="clickRightIcon"
+      />
+    </view>
+    <!-- 导航栏文字 -->
+    <view class="title">
+      <view wx:if="{{navTitle}}" class="navTitle">{{navTitle}}</view>
+      <view wx:if="{{subTitle}}" class="subTitle">{{subTitle}}</view>
+    </view>
+  </view>
+</view>

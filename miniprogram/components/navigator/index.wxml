@@ -1,0 +1,11 @@
+<view
+  class="navigator-container navigator-class"
+  bindtap="navigateTo"
+  style="background-color: {{bgColor}}"
+>
+  <view class="lefticon-text-container">
+    <view wx:if="{{leftIcon}}" class="iconfont {{leftIcon}} icon" style="color: {{color}}" />
+    <text class="navigator-text" style="color: {{color}}">{{text}}</text>
+  </view>
+  <view wx:if="{{RightIcon}}" class="iconfont {{RightIcon}} icon" />
+</view>

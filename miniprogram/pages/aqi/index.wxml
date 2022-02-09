@@ -1,0 +1,27 @@
+<nav-bar
+  navLeftIcon="left"
+  navTitle="空气质量指数"
+  bind:clickLeftIcon="clickLeftIcon"
+  textColor="#000"
+/>
+
+<scroll-view class="aqi-info-container" style="padding-top: {{paddingTop}}px">
+  <!-- AQI 指数进度条 -->
+  <view class="aqi-progress">
+    <semicircle-progress
+      percentage="{{percentage}}"
+      activeColor="{{activeColor}}"
+      GradientColor="{{GradientColor}}"
+      Text="{{aqi}}"
+      subText="{{category}}"
+    />
+  </view>
+  <tview class="pollutions-label">污染物</tview>
+  <view class="updateTime-label">发布时间: {{pubTime}}</view>
+  <view class="pollutions-container">
+    <view class="pollution" wx:for="{{pollutions}}" wx:key="name">
+      <view class="pollution-desc">{{item.name}}<span>{{item.unit}}</span></view>
+      <view class="pollution-value">{{item.value}}</view>
+    </view>
+  </view>
+</scroll-view>

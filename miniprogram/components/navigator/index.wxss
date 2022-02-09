@@ -1,0 +1,27 @@
+@import '../../styles/iconfont.wxss';
+
+.navigator-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.5em;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
+  padding: 0.5em;
+}
+
+.icon {
+  font-size: 1.5em;
+}
+
+.icon:first-of-type {
+  margin-right: 0.5em;
+}
+
+.icon:last-of-type {
+  color: #d3d3d3;
+}
+
+.lefticon-text-container {
+  display: flex;
+  align-items: center;
+}

@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "swiper-page": "/components/single-page/swiper-page",
-    "swiper-page-item": "/components/single-page/swiper-page-item"
+    "nav-bar": "/components/navbar/index",
+    "nav": "/components/navigator/index"
   }
 }

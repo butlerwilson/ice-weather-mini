@@ -1,0 +1,57 @@
+.aqi-info-container {
+  box-sizing: border-box;
+  padding: 0 2em;
+  height: 100vh;
+}
+
+.aqi-progress {
+  height: 400rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.aqi {
+  position: absolute;
+  text-align: center;
+}
+
+.aqi-num {
+  font-size: 2.5em;
+  font-weight: bold;
+  background-clip: text;
+}
+
+.pollutions-label {
+  font-weight: bold;
+}
+
+.pollutions-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  grid-gap: 0.5em;
+  margin: 1em 0;
+}
+
+.updateTime-label {
+  font-size: 0.6em;
+  color: #707070;
+  margin: 0.5em 0;
+}
+
+.pollution-desc > span {
+  font-size: 0.6em;
+}
+
+.pollution-value {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
+
+.pollution {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.5em;
+  padding: 0.5em;
+}

@@ -16,3 +16,18 @@ export function getDate(num = 0) {
 
   return `${year}${month}${day}`;
 }
+
+export function formatTime(date) {
+  if (date instanceof Date) {
+    const year = date.getFullYear(),
+      month = fillZero(date.getMonth() + 1),
+      day = fillZero(date.getDate()),
+      hour = fillZero(date.getHours()),
+      minute = fillZero(date.getMinutes()),
+      secord = fillZero(date.getSeconds());
+
+    return `${year}-${month}-${day} ${hour}:${minute}:${secord}`;
+  } else {
+    return;
+  }
+}
