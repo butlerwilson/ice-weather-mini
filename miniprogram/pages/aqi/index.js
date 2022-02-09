@@ -1,5 +1,5 @@
 import { formatTime } from '../../utils/time';
-import { AqiColor } from '../../utils/weather/aqicolor';
+import  AqiColor  from '../../utils/weather/aqicolor';
 
 const app = getApp();
 

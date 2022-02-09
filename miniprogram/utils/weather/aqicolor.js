@@ -1,4 +1,4 @@
-export class AqiColor {
+export default class AqiColor {
   //   优
   static Excellent = {
     activeColor: '#56B37F',
