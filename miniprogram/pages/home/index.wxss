@@ -1,37 +1,30 @@
-.container {
-  height: 100vh;
-  width: 100vw;
-}
-
 .weather-bg {
   background-color: rgb(84, 171, 253);
   width: 100%;
-  height: 650rpx;
-  position: absolute;
+  height: 100%;
+  position: fixed;
   top: 0;
   z-index: 1;
 }
 
-.weather-info {
+.weather-container {
   position: relative;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+  padding: 0 1em;
   z-index: 2;
 }
 
 .weather-brief-info-container {
-  position: inherit;
-  height: 650rpx;
-  padding: 0 2em;
+  position: relative;
+  height: 550rpx;
 }
 
 .weather-brief-info {
   position: absolute;
   bottom: 2em;
   color: #fff;
-}
-
-.navigator-class {
-  margin: 0 2em;
-  transform: translateY(-50%);
 }
 
 .temperature {
@@ -41,4 +34,37 @@
 .weather-aqi {
   background-color: transparent;
   outline: none;
+}
+
+.margin {
+  margin: 5px 0;
+}
+
+.title {
+  margin-bottom: 0.8em;
+  font-weight: bold;
+}
+
+.scroll {
+  position: relative;
+  height: 150px;
+  width: 100%;
+}
+
+.hourly {
+  display: flex;
+  height: 150px;
+  position: absolute;
+  top: 0;
+}
+
+.hourly > view {
+  min-width: 45px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.line {
+  position: absolute;
+  bottom: 0;
 }

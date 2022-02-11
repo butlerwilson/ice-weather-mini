@@ -6,30 +6,44 @@
   bind:clickRightIcon="clickRightIcon"
   bind:clickLeftIcon="clickLeftIcon"
 />
+<!-- 天气背景图 -->
+<view class="weather-bg"></view>
 
-<scroll-view class="container" scroll-y>
-  <!-- 天气背景图 -->
-  <view class="weather-bg"></view>
-  <view class="weather-info">
-    <view class="weather-brief-info-container">
-      <!-- 天气简报 -->
-      <view class="weather-brief-info">
-        <view class="temperature">
-          {{temperature}}
-        </view>
-        <view class="weather-condition">
-          {{condition}}, 体感 {{feel}}
-        </view>
+<scroll-view
+  class="weather-container"
+  scroll-y
+  style="padding-top: {{paddingTop}}px"
+  enhanced="{{true}}"
+  show-scrollbar="{{false}}"
+>
+  <view class="weather-brief-info-container">
+    <!-- 天气简报 -->
+    <view class="weather-brief-info">
+      <view class="temperature">
+        {{temperature}}
+      </view>
+      <view class="weather-condition">
+        {{condition}}, 体感 {{feel}}
       </view>
     </view>
-    <!-- 空气质量导航 -->
-    <nav
-      navigator-class="navigator-class"
-      bind:navigateTo="navigateTo"
-      leftIcon="leaf"
-      text="空气质量 - {{AQI}}"
-      RightIcon="right"
-      color="{{AQIColor}}"
-    />
   </view>
+  <!-- 空气质量导航 -->
+  <nav
+    bind:navigateTo="navigateTo"
+    leftIcon="leaf"
+    text="空气质量 - {{AQI}}"
+    RightIcon="right"
+    color="{{AQIColor}}"
+  />
+  <card card-class="margin">
+    <view class="temp-line-container">
+      <view class="title">小时概述</view>
+      <scroll-view scroll-x scroll-y class="scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
+        <view class="hourly">
+          <view wx:for="{{time}}" wx:key="index">{{item}}</view>
+        </view>
+        <line-chart line-class="line" width="{{scrollWidth}}" height="100" options="{{options}}" />
+      </scroll-view>
+    </view>
+  </card>
 </scroll-view>

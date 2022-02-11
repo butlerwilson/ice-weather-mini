@@ -31,3 +31,14 @@ export function formatTime(date) {
     return;
   }
 }
+
+export function formatTimeToHourAndMinute(date) {
+  if (date instanceof Date) {
+    const hour = fillZero(date.getHours()),
+      minute = fillZero(date.getMinutes());
+
+    return `${hour}:${minute}`;
+  } else {
+    return;
+  }
+}

@@ -1,6 +1,6 @@
 {
     "usingComponents": {
         "nav-bar": "/components/navbar/index",
-        "semicircle-progress": "/components/semicircle-progress/index"
+        "semicircle-progress": "/components/charts/semicircle-progress/index"
     }
 }
