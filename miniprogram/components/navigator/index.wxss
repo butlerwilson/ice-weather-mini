@@ -4,8 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 0.5em;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
+  border-radius: 4px;
   padding: 0.5em;
 }
 
@@ -18,7 +17,7 @@
 }
 
 .icon:last-of-type {
-  color: #d3d3d3;
+  color: #a3a3a3;
 }
 
 .lefticon-text-container {
