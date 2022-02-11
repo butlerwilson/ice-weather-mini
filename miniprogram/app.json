@@ -5,6 +5,9 @@
         "pages/setting/index",
         "pages/aqi/index"
     ],
+    "usingComponents": {
+        "card": "/components/card/index"
+    },
     "window": {
         "navigationStyle": "custom",
         "navigationBarTextStyle": "black"
