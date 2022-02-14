@@ -19,13 +19,6 @@ Component({
         .select('#line')
         .fields({ node: true, size: true })
         .exec(res => {
-          const canvas = res[0].node;
-          const ctx = canvas.getContext('2d');
-          const width = res[0].width; // 画布宽度
-          const height = res[0].height; // 画布高度
-
-          console.log(`画布宽度: ${width}, 高度: ${height}`);
-
           const line = new Line(res[0]);
           line.init(options);
         });

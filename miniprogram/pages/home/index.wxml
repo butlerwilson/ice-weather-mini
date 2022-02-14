@@ -42,7 +42,7 @@
         <view class="hourly">
           <view wx:for="{{time}}" wx:key="index">{{item}}</view>
         </view>
-        <line-chart line-class="line" width="{{scrollWidth}}" height="100" options="{{options}}" />
+        <line-chart line-class="line" width="{{scrollWidth}}" height="120" options="{{options}}" />
       </scroll-view>
     </view>
   </card>

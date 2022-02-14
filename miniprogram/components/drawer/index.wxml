@@ -1,0 +1,11 @@
+<!-- 蒙层 -->
+<view class="drawer-mask {{isOpen?'drawer-open':'drawer-close'}}" bindtap="closeDrawer">
+  <!-- 抽屉内容 -->
+  <view class="drawer-content" catchtap="doNothing">
+    <!-- 关闭按钮 -->
+    <view class="close-container">
+      <view class="iconfont close" bindtap="closeDrawer" />
+    </view>
+    <slot />
+  </view>
+</view>

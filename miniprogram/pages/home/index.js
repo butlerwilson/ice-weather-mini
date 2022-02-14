@@ -1,6 +1,5 @@
 import { formatTimeToHourAndMinute } from '../../utils/time';
-import AqiColor from '../../utils/weather/aqicolor';
-
+import { getColorByAqi } from '../../utils/weather/aqi';
 import hourly from './hourly'; // 模拟数据
 
 const app = getApp();
@@ -23,7 +22,7 @@ Page({
   },
   onLoad() {
     const { navHeight, statusBarHeight } = app.globalData;
-    const { activeColor } = AqiColor.getColorByAqi(20);
+    const { activeColor } = getColorByAqi(20);
 
     let temp = [],
       time = [];
@@ -44,16 +43,37 @@ Page({
       },
       series: [
         {
+          data: [8, 10, 9, 5, 5, 7],
+          smooth: true,
+          label: {
+            show: true,
+            formatter: '{d}°',
+            position: 'top',
+          },
+          lineStyle: {
+            width: 3,
+            color: '#FEB692',
+            backgroundColor: 'rgba(234,84,85,0.4)',
+          },
+          dots: {
+            color: '#EA5455',
+          },
+        },
+        {
           data: temp,
           smooth: true,
           label: {
             show: true,
             formatter: '{d}°',
+            position: 'bottom',
           },
           lineStyle: {
             width: 3,
-            color: '#0396FF',
+            color: '#ABDCFF',
             backgroundColor: 'rgba(171,220,255,0.9)',
+          },
+          dots: {
+            color: '#0396FF',
           },
         },
       ],
@@ -101,6 +121,7 @@ Page({
     };
 
     let aqiData = JSON.stringify(e);
+    console.log(aqiData);
     wx.navigateTo({
       url: `../aqi/index?obj=${aqiData}`,
     });

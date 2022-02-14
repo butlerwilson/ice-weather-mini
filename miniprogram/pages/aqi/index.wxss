@@ -23,7 +23,7 @@
   background-clip: text;
 }
 
-.pollutions-label {
+.label {
   font-weight: bold;
 }
 
@@ -40,18 +40,30 @@
   margin: 0.5em 0;
 }
 
-.pollution-desc > span {
-  font-size: 0.6em;
+.tip {
+  height: 200rpx;
 }
 
-.pollution-value {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-top: 0.5em;
+.aqi-description {
+  display: flex;
 }
 
-.pollution {
-  background-color: rgba(0, 0, 0, 0.1);
+.color-bar {
+  width: 1em;
   border-radius: 0.5em;
-  padding: 0.5em;
+  margin-right: 1em;
+}
+
+.desc > view:not(:last-child) {
+  margin-bottom: 1em;
+}
+
+.desc-title {
+  display: flex;
+  align-items: center;
+  margin: 0 0 0.5em 0;
+}
+
+.desc-title > view {
+  margin-left: 0.5em;
 }

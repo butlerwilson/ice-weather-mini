@@ -8,20 +8,39 @@
 <scroll-view class="aqi-info-container" style="padding-top: {{paddingTop}}px">
   <!-- AQI 指数进度条 -->
   <view class="aqi-progress">
-    <semicircle-progress
-      percentage="{{percentage}}"
-      activeColor="{{activeColor}}"
-      GradientColor="{{GradientColor}}"
-      Text="{{aqi}}"
-      subText="{{category}}"
-    />
+    <semicircle-progress options="{{options}}"></semicircle-progress>
+    <view class="iconfont tip" bindtap="popTip"></view>
   </view>
-  <tview class="pollutions-label">污染物</tview>
+  <view class="label">污染物</view>
   <view class="updateTime-label">发布时间: {{pubTime}}</view>
   <view class="pollutions-container">
-    <view class="pollution" wx:for="{{pollutions}}" wx:key="name">
-      <view class="pollution-desc">{{item.name}}<span>{{item.unit}}</span></view>
-      <view class="pollution-value">{{item.value}}</view>
+    <block-progress
+      wx:for="{{pollutions}}"
+      wx:key="name"
+      value="{{item.value}}"
+      desc="{{item.name}}"
+      sub="{{item.unit}}"
+      max="{{item.max}}"
+    />
+  </view>
+  <view class="label">小时预报</view>
+</scroll-view>
+
+<!-- 这里加一个抽屉 -->
+<!-- 展示空气污染指数的介绍 -->
+<drawer isOpen="{{isOpen}}">
+  <view class="aqi-description">
+    <!-- 颜色条 -->
+    <view class="color-bar" style="background: linear-gradient({{color}});" />
+    <!-- 描述 -->
+    <view class="desc">
+      <view wx:for="{{desc}}" wx:key="name">
+        <view class="desc-title">
+          <iconfont name="{{item.icon}}" />
+          <view>{{item.name}}: {{item.scope}}</view>
+        </view>
+        <view>{{item.desc}}</view>
+      </view>
     </view>
   </view>
-</scroll-view>
+</drawer>

@@ -6,7 +6,9 @@
         "pages/aqi/index"
     ],
     "usingComponents": {
-        "card": "/components/card/index"
+        "card": "/components/card/index",
+        "drawer": "/components/drawer/index",
+        "iconfont": "/components/iconfont/iconfont"
     },
     "window": {
         "navigationStyle": "custom",

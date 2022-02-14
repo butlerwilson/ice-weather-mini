@@ -15,7 +15,7 @@
                 {
                     "name": "AQI",
                     "pathName": "pages/aqi/index",
-                    "query": "",
+                    "query": "obj={\"pubTime\":\"2022-02-04T21:00+08:00\",\"aqi\":\"20\",\"level\":\"1\",\"category\":\"优\",\"primary\":\"NA\",\"pm10\":\"20\",\"pm2p5\":\"17\",\"no2\":\"6\",\"so2\":\"6\",\"co\":\"0.8\",\"o3\":\"57\"}",
                     "scene": null,
                     "launchMode": "default"
                 }

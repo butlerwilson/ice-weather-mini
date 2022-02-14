@@ -47,13 +47,13 @@
 
 .scroll {
   position: relative;
-  height: 150px;
+  height: 180px;
   width: 100%;
 }
 
 .hourly {
   display: flex;
-  height: 150px;
+  height: 180px;
   position: absolute;
   top: 0;
 }

@@ -1,9 +1,0 @@
-<button
-  class="button"
-  style="border-color: {{textColor}};background-color: {{btnBgColor}};color: {{textColor}}"
->
-  <view wx:if="{{btnIcon}}" class="iconfont {{btnIcon}} btn-icon" />
-  <view class="btnText">
-    {{btnText}}
-  </view>
-</button>

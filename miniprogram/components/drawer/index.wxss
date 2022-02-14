@@ -1,0 +1,53 @@
+@import '../../styles/iconfont.wxss';
+
+.drawer-mask {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  z-index: 100;
+  transition: opacity 0.2s, height 1ms;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.drawer-content {
+  background-color: white;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  transition: transform 0.3s;
+  max-height: 80vh;
+  padding: 20px;
+  position: absolute;
+  top: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.drawer-mask.drawer-close {
+  opacity: 0;
+  height: 0;
+  transition-delay: 0, 0.3s;
+}
+
+.drawer-mask.drawer-close .drawer-content {
+  transform: translateY(100%);
+}
+
+.drawer-mask.drawer-open {
+  opacity: 1;
+  height: 100%;
+}
+
+.drawer-mask.drawer-open .drawer-content {
+  transform: translateY(0);
+}
+
+/* 关闭按钮 */
+.close-container {
+  text-align: right;
+}
+
+.close-container .close {
+  font-size: 2em;
+  display: inline;
+}

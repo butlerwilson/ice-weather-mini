@@ -1,3 +1,5 @@
+import { Canvas } from '../canvas';
+
 class Point {
   constructor(x, y) {
     this.x = x;
@@ -5,17 +7,9 @@ class Point {
   }
 }
 
-export class Line {
+export class Line extends Canvas {
   constructor(chart) {
-    this.canvas = chart.node;
-    this.ctx = this.canvas.getContext('2d');
-    this.width = chart.width;
-    this.height = chart.height;
-
-    const dpr = wx.getSystemInfoSync().pixelRatio;
-    this.canvas.width = this.width * dpr;
-    this.canvas.height = this.height * dpr;
-    this.ctx.scale(dpr, dpr);
+    super(chart);
   }
 
   /**
@@ -34,7 +28,8 @@ export class Line {
    *        smooth: true,
    *        label: {
    *           show: true,
-   *           formatter: '{d}°'
+   *           formatter: '{d}°',
+   *           position: 'top',
    *        },
    *        lineStyle: {
    *           width: 3,
@@ -67,9 +62,9 @@ export class Line {
 
     // 把 canvas 的宽度, 高度按一定规则平分
     this.startX = this.width / (maxLength * 2); // 起始点的横坐标 X
-    this.baseY = this.height * 0.9; // 基线纵坐标 Y
+    this.baseY = this.height * 0.8; // 基线纵坐标 Y
     this.diffX = this.width / maxLength; // 每个元素的宽度差
-    this.diffY = (this.height * 0.7) / (this.Max - this.Min); // 高度预留 0.2 写标签
+    this.diffY = (this.height * 0.6) / (this.Max - this.Min); // 高度预留 0.2 写标签
 
     const textStyle = options.textStyle;
     this.ctx.textAlign = textStyle?.textAlign || 'center';
@@ -102,17 +97,24 @@ export class Line {
     this.ctx.beginPath();
 
     this.ctx.lineWidth = lineStyle?.width || 3;
-    this.ctx.strokeStyle = lineStyle?.color || '#abdcff';
+    this.ctx.strokeStyle = lineStyle?.color || '#ABDCFF';
 
     this.ctx.stroke(path);
 
     this.drawLabel(data, label); // 标签
-    this.drawDots(data); // 小圆点
+    this.drawDots(data, el); // 小圆点
   }
 
   // 绘制标签
   drawLabel(data, label) {
     this.ctx.fillStyle = '#000'; // 标签默认黑色
+
+    let position; // 标签位置
+    if (label?.position === 'top' || typeof label?.position === 'undefined') {
+      position = 10;
+    } else if (label?.position === 'bottom') {
+      position = -parseInt(/\d*/g.exec(this.ctx.font)[0]) - 2;
+    }
 
     if (label?.show && label?.formatter) {
       // 存在 formatter 时
@@ -120,7 +122,11 @@ export class Line {
         const x = this.startX + this.diffX * i,
           y = this.baseY - (e - this.Min) * this.diffY;
 
-        this.ctx.fillText(label.formatter.replace(/\{d\}/i, e), x, y - 10);
+        this.ctx.fillText(
+          label.formatter.replace(/\{d\}/i, e),
+          x,
+          y - position
+        );
       });
     } else if (label?.show) {
       // 不存在 formmater 时
@@ -128,13 +134,14 @@ export class Line {
         const x = this.startX + this.diffX * i,
           y = this.baseY - (e - this.Min) * this.diffY;
 
-        this.ctx.fillText(e, x, y - 10);
+        this.ctx.fillText(e, x, y - position);
       });
     }
   }
 
   // 画折线图小圆点
-  drawDots(data) {
+  drawDots(data, el) {
+    const { dots } = el;
     this.ctx.beginPath();
 
     data.forEach((e, i) => {
@@ -144,7 +151,7 @@ export class Line {
       this.ctx.moveTo(x, y);
       this.ctx.arc(x, y, 3, 0, 2 * Math.PI);
     });
-    this.ctx.fillStyle = this.ctx.strokeStyle;
+    this.ctx.fillStyle = dots?.color || '#0396FF';
     this.ctx.fill();
   }
 
@@ -154,7 +161,7 @@ export class Line {
 
     if (typeof lineStyle?.backgroundColor !== 'undefined') {
       const { data } = el;
-      const path_ = new Path2D(path);
+      const path_ = this.canvas.createPath2D(path);
 
       path_.lineTo(this.startX + (data.length - 1) * this.diffX, this.baseY); // 基线终点
       path_.lineTo(this.startX, this.baseY); // 基线起点
@@ -204,7 +211,8 @@ export class Line {
    */
   createBezierLine(el) {
     const { data } = el;
-    const path = new Path2D();
+    const path = this.canvas.createPath2D();
+
     const { startX, baseY, Min, diffY, diffX } = this;
 
     path.moveTo(this.startX, this.baseY - (data[0] - this.Min) * this.diffY);
@@ -266,7 +274,7 @@ export class Line {
   // 创建折线路径
   createBrokenLine(el) {
     const { data } = el;
-    const path = new Path2D();
+    const path = this.canvas.createPath2D();
     data.forEach((e, i) => {
       const x = this.startX + this.diffX * i,
         y = this.baseY - (e - this.Min) * this.diffY;
