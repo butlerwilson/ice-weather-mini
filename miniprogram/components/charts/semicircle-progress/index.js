@@ -7,8 +7,8 @@ Component({
 
   lifetimes: {
     ready() {
-      const query = this.createSelectorQuery();
-      query
+      this.createSelectorQuery()
+        .in(this)
         .select('#ring')
         .fields({ node: true, size: true })
         .exec(res => {
