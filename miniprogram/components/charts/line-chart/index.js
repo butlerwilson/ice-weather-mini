@@ -14,8 +14,8 @@ Component({
   },
   methods: {
     draw(options) {
-      const query = this.createSelectorQuery();
-      query
+      this.createSelectorQuery()
+        .in(this)
         .select('#line')
         .fields({ node: true, size: true })
         .exec(res => {
