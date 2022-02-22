@@ -1,5 +1,3 @@
-@import '../../styles/mini-icon.wxss';
-
 .panel-container {
   /* 横向布局 */
   display: flex;

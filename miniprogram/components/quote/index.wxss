@@ -1,5 +1,3 @@
-@import '../../styles/mini-icon.wxss';
-
 .quote-container {
   background-color: rgba(0, 0, 0, 0.1);
   position: relative;
