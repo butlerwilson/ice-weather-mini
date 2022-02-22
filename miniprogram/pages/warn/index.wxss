@@ -1,0 +1,17 @@
+.warn-container {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 0 2em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.warn {
+  font-weight: bold;
+  font-size: 1.5em;
+  margin: 1em 0;
+}
