@@ -1,49 +1,132 @@
+<!-- 导航栏 -->
 <nav-bar
-  navLeftIcon="search"
+  navLeftIcon="cites"
   navRightIcon="setting"
   navTitle="{{city}}"
   subTitle="{{exactLocation}}"
-  bind:clickRightIcon="clickRightIcon"
-  bind:clickLeftIcon="clickLeftIcon"
+  bind:right="setting"
+  bind:left="cites"
+  backgroundColor="{{navBgColor}}"
 />
+
 <!-- 天气背景图 -->
 <view class="weather-bg"></view>
 
 <scroll-view
+  wx:if="{{isReady}}"
   class="weather-container"
   scroll-y
   style="padding-top: {{paddingTop}}px"
   enhanced="{{true}}"
   show-scrollbar="{{false}}"
 >
-  <view class="weather-brief-info-container">
-    <!-- 天气简报 -->
-    <view class="weather-brief-info">
-      <view class="temperature">
-        {{temperature}}
-      </view>
-      <view class="weather-condition">
-        {{condition}}, 体感 {{feel}}
-      </view>
+  <!-- 天气简报 -->
+  <view class="weather-brief-info">
+    <view class="temperature">
+      {{now.temperature}}{{unit}}
     </view>
+    <view class="weather-condition">
+      {{now.desc}}, 体感 {{now.feelsLike}}{{unit}}
+    </view>
+    <!--  空气质量  -->
+    <quote bindtap="aqiPage" icon="quote" text="空气质量 - {{aqi.category}}" />
+    <!-- 一些重要数据 -->
+    <row-panel options="{{now.detail}}" />
   </view>
-  <!-- 空气质量导航 -->
-  <nav
-    bind:navigateTo="navigateTo"
-    leftIcon="leaf"
-    text="空气质量 - {{AQI}}"
-    RightIcon="right"
-    color="{{AQIColor}}"
-  />
-  <card card-class="margin">
-    <view class="temp-line-container">
-      <view class="title">小时概述</view>
-      <scroll-view scroll-x scroll-y class="scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
-        <view class="hourly">
-          <view wx:for="{{time}}" wx:key="index">{{item}}</view>
+
+  <!-- 详细的天气信息 -->
+  <view class="weather-detail-content">
+    <!-- 预警 -->
+    <alert
+      wx:for="{{warings}}"
+      wx:key="index"
+      data-index="{{index}}"
+      text="{{item.typeName}}预警"
+      backgroundColor="{{item.color}}"
+      bindtap="waringPage"
+    />
+    <card>
+      <view>
+        <view class="title">小时概述</view>
+        <scroll-view scroll-x class="scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
+          <view class="hours">
+            <view
+              class="hours-item"
+              hover-class="hours-item-hover"
+              wx:for="{{hours}}"
+              wx:key="index"
+            >
+              <!-- 天气时间 -->
+              <view class="hours-time">{{item.time}}</view>
+              <!-- 天气图标 -->
+              <qweather name="{{item.icon}}" class="hours-icon" />
+              <!-- 天气情况 -->
+              <view class="hours-desc">{{item.text}}</view>
+              <!-- 温度 -->
+              <view class="hours-temp">{{item.temp}}</view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </card>
+
+    <card>
+      <view>
+        <view class="title">逐日概述</view>
+        <scroll-view scroll-x class="scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
+          <view class="days">
+            <view class="days-item" hover-class="days-item-hover" wx:for="{{days}}" wx:key="index">
+              <!-- 星期 -->
+              <view class="days-week">{{item.weekday}}</view>
+              <!-- 几号 -->
+              <view class="days-time">{{item.day}}</view>
+              <!-- 白天天气情况 -->
+              <view class="days-desc">{{item.textDay}}</view>
+              <!-- 白天天气图标 -->
+              <qweather name="{{item.iconDay}}" class="hours-icon" />
+
+              <!-- 温度图 -->
+              <single-bar-chart
+                max="{{item.tempMax}}"
+                min="{{item.tempMin}}"
+                average="{{average}}"
+                delta="{{deltaTemp}}"
+              />
+
+              <!-- 夜间天气图标 -->
+              <qweather name="{{item.iconNight}}" class="hours-icon" />
+              <!-- 夜间天气描述 -->
+              <view class="hours-desc">{{item.textNight}}</view>
+            </view>
+          </view>
+          <!-- 温度曲线 -->
+        </scroll-view>
+      </view>
+    </card>
+
+    <!-- 生活指数轮播图 -->
+    <card>
+      <view>
+        <view class="title">生活指数</view>
+        <grid-swiper swiperData="{{livingIndices}}" />
+      </view>
+    </card>
+
+    <!-- 日月生落 -->
+    <card>
+      <view>
+        <view class="title-container">
+          <view class="title">日月升落</view>
+          <!-- 月相 -->
+          <qweather name="{{moonTime.icon}}" />
         </view>
-        <line-chart line-class="line" width="{{scrollWidth}}" height="120" options="{{options}}" />
-      </scroll-view>
-    </view>
-  </card>
+        <sun-moon
+          sunRise="{{sunTime.sunRise}}"
+          sunSet="{{sunTime.sunSet}}"
+          moonRise="{{moonTime.moonRise}}"
+          moonSet="{{moonTime.moonSet}}"
+        />
+      </view>
+    </card>
+  </view>
 </scroll-view>

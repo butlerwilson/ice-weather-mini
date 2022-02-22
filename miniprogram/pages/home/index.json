@@ -1,7 +1,11 @@
 {
   "usingComponents": {
-    "nav-bar": "/components/navbar/index",
-    "nav": "/components/navigator/index",
-    "line-chart": "/components/charts/line-chart/index"
+    "quote": "/components/quote/index",
+    "line-chart": "/components/charts/line-chart/index",
+    "single-bar-chart": "/components/charts/single-bar-chart/index",
+    "row-panel": "/components/row-panel/index",
+    "grid-swiper": "/components/grid-swiper/index",
+    "sun-moon": "/components/sun-moon/index",
+    "alert": "/components/alert/index"
   }
 }
