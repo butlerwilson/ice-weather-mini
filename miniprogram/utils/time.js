@@ -1,44 +1,45 @@
-// 日期补 0
-function fillZero(num) {
-  return num < 10 ? `0${num}` : num;
-}
-
-// 获取距离当前日期 num 天的日期
-export function getDate(num = 0) {
-  let timestamp = new Date().getTime(); // 当前日期的时间戳
-
-  timestamp += num * 1000 * 3600 * 24; // 时间戳加上指定天数
-
-  let date = new Date(timestamp);
-  let year = date.getFullYear();
-  let month = fillZero(date.getMonth() + 1);
-  let day = fillZero(date.getDate());
-
-  return `${year}${month}${day}`;
-}
-
-export function formatTime(date) {
-  if (date instanceof Date) {
-    const year = date.getFullYear(),
-      month = fillZero(date.getMonth() + 1),
-      day = fillZero(date.getDate()),
-      hour = fillZero(date.getHours()),
-      minute = fillZero(date.getMinutes()),
-      secord = fillZero(date.getSeconds());
-
-    return `${year}-${month}-${day} ${hour}:${minute}:${secord}`;
-  } else {
-    return;
+// 日期格式化
+Date.prototype.format = function (fmt) {
+  // 年
+  if (/y+/.test(fmt)) {
+    const y = /y+/.exec(fmt)[0];
+    fmt = fmt.replace(y, String(this.getFullYear()).substring(4 - y.length));
   }
-}
 
-export function formatTimeToHourAndMinute(date) {
-  if (date instanceof Date) {
-    const hour = fillZero(date.getHours()),
-      minute = fillZero(date.getMinutes());
+  const o = {
+    'M+': this.getMonth() + 1, // 月
+    'd+': this.getDate(), // 日
+    'h+': this.getHours(), // 小时
+    'm+': this.getMinutes(), // 分
+    's+': this.getSeconds(), // 秒
+    'q+': Math.floor((this.getMonth() + 3) / 3), // 季度
+    ms: this.getMilliseconds(), // 毫秒
+  };
 
-    return `${hour}:${minute}`;
-  } else {
-    return;
+  for (let k in o) {
+    const regex = new RegExp(k);
+    if (regex.test(fmt)) {
+      const v = regex.exec(fmt)[0];
+      fmt = fmt.replace(
+        v,
+        v.length === 1 ? o[k] : `00${o[k]}`.substring(String(o[k]).length)
+      );
+    }
   }
-}
+  return fmt;
+};
+
+// 星期几
+Date.prototype.week = function () {
+  const w = ['日', '一', '二', '三', '四', '五', '六'];
+
+  return w[this.getDay()];
+};
+
+// 获取距离 n 天的日期
+Date.prototype.deltaDay = function (n) {
+  const timestamp = new Date().getTime(); // 当前日期的时间戳
+
+  // 时间戳加上指定天数(1000 * 3600 * 24)
+  return new Date(timestamp + n * 86400000);
+};
