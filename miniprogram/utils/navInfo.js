@@ -1,3 +1,4 @@
+// 获取导航栏信息
 export function getNavBarInfo() {
   const capsuleInfo = wx.getMenuButtonBoundingClientRect();
 
