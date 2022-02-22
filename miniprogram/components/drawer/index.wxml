@@ -4,7 +4,7 @@
   <view class="drawer-content" catchtap="doNothing">
     <!-- 关闭按钮 -->
     <view class="close-container">
-      <view class="iconfont close" bindtap="closeDrawer" />
+      <common name="close" bindtap="closeDrawer" size="25"/>
     </view>
     <slot />
   </view>
