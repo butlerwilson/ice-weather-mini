@@ -67,3 +67,8 @@
 .desc-title > view {
   margin-left: 0.5em;
 }
+
+
+.hourly-container {
+  margin: 1em 0;
+}

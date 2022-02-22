@@ -67,7 +67,7 @@ export default class Aqi {
 }
 
 // 根据 aqi 指数获取值
-export function getColorByAqi(e) {
+export function getAqiColor(e) {
   const aqi = parseFloat(e);
   if (aqi >= 0 && aqi <= 50) {
     return Aqi.Excellent;

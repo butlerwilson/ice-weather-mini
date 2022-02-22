@@ -1,6 +1,6 @@
-import Aqi from '../../utils/weather/aqi';
+import Aqi from './aqi';
 
-export default function getAqiDesc() {
+export default function tip() {
   const keys = Object.keys(Aqi);
 
   let color = [],
