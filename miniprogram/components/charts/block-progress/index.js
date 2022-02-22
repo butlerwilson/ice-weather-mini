@@ -41,6 +41,7 @@ Component({
       const { value, max, min } = this.data;
 
       this.createSelectorQuery()
+        .in(this)
         .select('.progress-container')
         .boundingClientRect(rect => {
           const height = rect.height;
