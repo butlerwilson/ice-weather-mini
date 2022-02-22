@@ -1,7 +1,7 @@
-@import '../../styles/iconfont.wxss';
-
+/* 导航栏 */
 .nav-bar-container {
   z-index: 100;
+  transition: background-color 0.2s linear;
   position: fixed;
   top: 0;
   left: 0;
@@ -14,6 +14,7 @@
   display: flex;
 }
 
+/* 导航图标 */
 .nav-icon-container {
   display: flex;
   justify-content: flex-start;
@@ -22,19 +23,19 @@
 
 .nav-icon {
   margin-right: 0.5em;
-  font-size: 1.5em;
 }
 
+/* 导航栏标题 */
 .title {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.navTitle {
+.title > .navTitle {
   font-weight: bold;
 }
 
-.subTitle {
+.title > .subTitle {
   font-size: 0.6em;
 }

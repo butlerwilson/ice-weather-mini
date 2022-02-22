@@ -2,35 +2,39 @@ const app = getApp();
 
 Component({
   properties: {
-    navLeftIcon: String,
-    navRightIcon: String,
-    subTitle: String,
-    navTitle: String,
-    textColor: {
+    textColor: { // 字体颜色
       type: String,
       value: '#fff',
     },
+    backgroundColor: { // 背景色
+      type: String,
+      value: 'transparent',
+    },
+    navLeftIcon: String, // 左图标
+    navRightIcon: String, // 右图标
+    subTitle: String, // 主标题
+    navTitle: String, // 副标题
   },
   data: {
-    navHeight: 0,
-    statusBarHeight: 0,
+    navHeight: 0, // 导航栏高度
+    statusBarHeight: 0, // 状态栏高度
   },
 
   lifetimes: {
-    attached() {
+    ready() {
       const { navHeight, statusBarHeight } = app.globalData;
       this.setData({ navHeight, statusBarHeight });
     },
   },
 
   methods: {
-    clickLeftIcon() {
+    left() {
       // 导航栏按钮点击事件
-      this.triggerEvent('clickLeftIcon');
+      this.triggerEvent('left');
     },
-    clickRightIcon() {
+    righr() {
       // 导航栏按钮点击事件
-      this.triggerEvent('clickRightIcon');
+      this.triggerEvent('right');
     },
   },
 });

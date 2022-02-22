@@ -1,16 +1,25 @@
-<view class="nav-bar-container" style="padding-top:{{statusBarHeight}}px; color: {{textColor}}">
+<view
+  class="nav-bar-container"
+  style="padding-top:{{statusBarHeight}}px; color: {{textColor}}; background-color: {{backgroundColor}};"
+>
   <view class="nav-bar" style="height: {{navHeight}}px">
     <!-- 导航栏左边图标 -->
     <view class="nav-icon-container">
-      <view
+      <common
+        class="nav-icon"
+        name="{{navLeftIcon}}"
         wx:if="{{navLeftIcon}}"
-        class="nav-icon iconfont {{navLeftIcon}}"
-        bindtap="clickLeftIcon"
+        bindtap="left"
+        color="{{textColor}}"
+        size="{{25}}"
       />
-      <view
+      <common
+        class="nav-icon"
+        name="{{navRightIcon}}"
         wx:if="{{navRightIcon}}"
-        class="nav-icon iconfont {{navRightIcon}}"
-        bindtap="clickRightIcon"
+        bindtap="right"
+        color="{{textColor}}"
+        size="{{25}}"
       />
     </view>
     <!-- 导航栏文字 -->
