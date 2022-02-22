@@ -1,6 +1,4 @@
-import { getDate } from '../time';
-
-// 获取天气数据的类
+// 和风天气数据的类
 class Qweather {
   constructor(key) {
     this.key = key; // 和风天气的 key
@@ -87,11 +85,11 @@ class Qweather {
   getSunTime(location, date) {
     return this.wxRequest({
       url: 'astronomy/sun',
-      data: { location, date: date || getDate() },
+      data: { location, date: date || new Date().format('yyyyMMdd') },
     }).then(res => {
       return {
-        sunrise: res.sunrise,
-        sunset: res.sunset,
+        sunRise: res.sunrise,
+        sunSet: res.sunset,
       };
     });
   }
@@ -100,11 +98,11 @@ class Qweather {
   getMoonTime(location, date) {
     return this.wxRequest({
       url: 'astronomy/moon',
-      data: { location, date: date || getDate(30) },
+      data: { location, date: date || new Date().format('yyyyMMdd') },
     }).then(res => {
       return {
-        moonrise: res.moonrise,
-        moonset: res.moonset,
+        moonRise: res.moonrise,
+        moonSet: res.moonset,
         moonPhase: res.moonPhase,
       };
     });
@@ -127,17 +125,17 @@ class Qweather {
   // 获取生活指数, 默认获取全部生活指数
   getLivingIndices(location, type = 0) {
     return this.wxRequest({
-      url: '/indices/1d',
+      url: 'indices/1d',
       data: { location, type },
     }).then(res => {
-      return res.warning;
+      return res.daily;
     });
   }
 
   // 获取 2 小时降水
   getPrecipitationInTheNextTwoHours(location) {
     return this.wxRequest({
-      url: '/minutely/5m',
+      url: 'minutely/5m',
       data: { location },
     }).then(res => {
       return {
@@ -160,7 +158,7 @@ class Qweather {
   // 获取未来 7 天天气预报
   getWeatherInTheNext7Days(location) {
     return this.wxRequest({
-      url: '/weather/7d',
+      url: 'weather/7d',
       data: { location },
     }).then(res => {
       return res.daily;
@@ -170,7 +168,7 @@ class Qweather {
   // 获取实时天气预报
   getNowWeather(location) {
     return this.wxRequest({
-      url: '/weather/now',
+      url: 'weather/now',
       data: { location },
     }).then(res => {
       return res.now;
@@ -179,27 +177,37 @@ class Qweather {
 
   // 一键获取全部天气数据
   async getAllweather(location) {
-    const aqi = await this.getAqi(location);
-    const sunTime = await this.getSunTime(location);
-    const moonTime = await this.getMoonTime(location);
-    const waring = await this.getDisasterWaring(location);
-    const livingIndices = await this.getLivingIndices(location);
-    const Prec = await this.getPrecipitationInTheNextTwoHours(location);
-    const next24h = await this.getWeatherInTheNext24Hours(location);
-    const next7days = await this.getWeatherInTheNext7Days(location);
-    const now = await this.getNowWeather(location);
+    return Promise.all([
+      this.getAqi(location),
+      this.getSunTime(location),
+      this.getMoonTime(location),
+      this.getDisasterWaring(location),
+      this.getLivingIndices(location),
+      this.getPrecipitationInTheNextTwoHours(location),
+      this.getWeatherInTheNext24Hours(location),
+      this.getWeatherInTheNext7Days(location),
+      this.getNowWeather(location),
+    ]).then(values => {
+      const keys = [
+        'aqi',
+        'sunTime',
+        'moonTime',
+        'waring',
+        'livingIndices',
+        'precipitation',
+        'next24h',
+        'next7days',
+        'now',
+      ];
 
-    return {
-      aqi,
-      sunTime,
-      moonTime,
-      waring,
-      livingIndices,
-      Prec,
-      next24h,
-      next7days,
-      now,
-    };
+      const res = {};
+
+      keys.forEach((key, index) => {
+        res[key] = values[index];
+      });
+
+      return res;
+    });
   }
 }
 
