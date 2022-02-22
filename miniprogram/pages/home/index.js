@@ -1,5 +1,6 @@
 import qweather from '../../utils/weather/qweather';
 import openWeather from '../../utils/weather/openweather';
+import option from './rain';
 import Pollutions from '../aqi/pollutions';
 import Waring from '../../utils/weather/waring';
 import uuid from '../../utils/uuid';
@@ -19,18 +20,19 @@ Page({
   },
   onLoad() {
     // 获取天气信息
-    wx.getLocation({
-      type: 'wgs84',
-    })
-      .then(res => {
-        const latitude = res.latitude;
-        const longitude = res.longitude;
-        const location = `${longitude},${latitude}`;
-        this.getQweather(location);
-      })
-      .catch(err => {
-        console.log(`获取用户位置时出错, 原因: ${err.errMsg}`);
-      });
+    // wx.getLocation({
+    //   type: 'wgs84',
+    // })
+    //   .then(res => {
+    //     const latitude = res.latitude;
+    //     const longitude = res.longitude;
+    //     const location = `${longitude},${latitude}`;
+    //     this.getQweather(location);
+    //   })
+    //   .catch(err => {
+    //     console.log(`获取用户位置时出错, 原因: ${err.errMsg}`);
+    //   });
+    this.getQweather('123');
 
     // 获取状态栏高度
     const { navHeight, statusBarHeight } = app.globalData;
@@ -96,7 +98,15 @@ Page({
         };
 
         // 降水
-        Weather.precipitation = res.precipitation;
+        const minutely = res.precipitation.minutely;
+        const prec = minutely.every(e => e === '0.0');
+        if (!prec) {
+          // 如果存在降雨
+          Weather.precipitation = res.precipitation;
+          Weather.precipitation.minutely.forEach(e => {
+            e.precip = parseFloat(e.precip); // 和风天气返回的是字符串
+          });
+        }
 
         // 逐小时
         Weather.hours = [...res.next24h];

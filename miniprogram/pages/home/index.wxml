@@ -22,16 +22,21 @@
 >
   <!-- 天气简报 -->
   <view class="weather-brief-info">
-    <view class="temperature">
+    <view class="temperature rise-animation">
       {{now.temperature}}{{unit}}
     </view>
-    <view class="weather-condition">
+    <view class="weather-condition rise-animation">
       {{now.desc}}, 体感 {{now.feelsLike}}{{unit}}
     </view>
     <!--  空气质量  -->
-    <quote bindtap="aqiPage" icon="quote" text="空气质量 - {{aqi.category}}" />
+    <quote
+      bindtap="aqiPage"
+      icon="quote"
+      text="空气质量 - {{aqi.category}}"
+      quote-class="weather-aqi"
+    />
     <!-- 一些重要数据 -->
-    <row-panel options="{{now.detail}}" />
+    <row-panel options="{{now.detail}}" panel-class="detail-data" />
   </view>
 
   <!-- 详细的天气信息 -->
@@ -44,8 +49,16 @@
       text="{{item.typeName}}预警"
       backgroundColor="{{item.color}}"
       bindtap="waringPage"
+      alert-class="alert"
     />
-    <card>
+    <card card-class="card-1" wx:if="{{precipitation}}">
+      <view>
+        <view class="title">未来两小时降水</view>
+        <line-chart></line-chart>
+        <view class="precip-summary">{{precipitation.summary}}</view>
+      </view>
+    </card>
+    <card card-class="card-1">
       <view>
         <view class="title">小时概述</view>
         <scroll-view scroll-x class="scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
@@ -70,7 +83,7 @@
       </view>
     </card>
 
-    <card>
+    <card card-class="card-2">
       <view>
         <view class="title">逐日概述</view>
         <scroll-view scroll-x class="scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
@@ -105,7 +118,7 @@
     </card>
 
     <!-- 生活指数轮播图 -->
-    <card>
+    <card card-class="card-3">
       <view>
         <view class="title">生活指数</view>
         <grid-swiper swiperData="{{livingIndices}}" />
@@ -113,7 +126,7 @@
     </card>
 
     <!-- 日月生落 -->
-    <card>
+    <card card-class="card-4">
       <view>
         <view class="title-container">
           <view class="title">日月升落</view>

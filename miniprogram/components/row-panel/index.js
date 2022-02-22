@@ -1,4 +1,5 @@
 Component({
+  externalClasses: ['panel-class'],
   properties: {
     /**
      * data = [{

@@ -1,5 +1,5 @@
 Component({
-  externalClasses: ['navigator-class'],
+  externalClasses: ['quote-class'],
   properties: {
     icon: {
       type: String,
