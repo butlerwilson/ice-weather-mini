@@ -1,4 +1,5 @@
-import { getNavBarInfo } from './utils/systemInfo';
+import { getNavBarInfo } from '/utils/navInfo';
+import './utils/time';
 
 App({
   onLaunch: function () {
