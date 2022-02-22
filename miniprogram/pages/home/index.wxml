@@ -130,3 +130,7 @@
     </card>
   </view>
 </scroll-view>
+
+<view wx:else class="loading">
+  <loading />
+</view>

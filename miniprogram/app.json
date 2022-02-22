@@ -12,7 +12,8 @@
         "drawer": "/components/drawer/index",
         "qweather": "/assets/icons/qweather/qweather",
         "life": "/assets/icons/life/life",
-        "common": "/assets/icons/common/common"
+        "common": "/assets/icons/common/common",
+        "loading": "/components/loading/index"
     },
     "window": {
         "navigationStyle": "custom",
