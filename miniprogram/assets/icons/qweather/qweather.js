@@ -1,6 +1,6 @@
 Component({
   properties: {
-    // good | moderate | excellent | lightly | serious | heavy | close | alert-circle | chevron-left | chevron-right | Leaf | cities | setting
+    // 152 | 102 | 151 | 101 | 104 | 509 | 501 | 315 | 306 | 313 | 311 | 307 | 314 | 318 | 310 | 316 | 351 | 317 | 301 | 305 | 303 | 309 | 302 | 308 | 312 | 399 | 300 | 350 | 304 | 901 | 999 | 805 | 806 | 800 | 801 | 804 | 802 | 803 | 807 | 403 | 410 | 405 | 407 | 457 | 409 | 400 | 402 | 401 | 456 | 408 | 404 | 406 | 499 | 500 | 502 | 504 | 512 | 900 | 515 | 100 | 503 | 153 | 507 | 103 | 150 | 513 | 511 | 508 | 514 | 510
     name: {
       type: String,
     },
@@ -16,7 +16,7 @@ Component({
     },
     size: {
       type: Number,
-      value: 18,
+      value: 40,
       observer: function(size) {
         this.setData({
           svgSize: size,
@@ -26,7 +26,7 @@ Component({
   },
   data: {
     colors: '',
-    svgSize: 18,
+    svgSize: 40,
     quot: '"',
     isStr: true,
   },
