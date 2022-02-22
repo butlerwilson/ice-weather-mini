@@ -1,4 +1,5 @@
 Component({
+  externalClasses: ['alert-class'],
   properties: {
     backgroundColor: {
       type: String,

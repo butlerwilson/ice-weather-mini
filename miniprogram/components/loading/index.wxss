@@ -14,7 +14,6 @@
 .cube-folding {
   width: calc(var(--block-size) * 2);
   height: calc(var(--block-size) * 2);
-  transform: rotate(45deg);
   font-size: 0;
 }
 
@@ -83,7 +82,7 @@
 }
 
 .loading {
-  margin-top: 2em;
+  margin-top: 1em;
 }
 
 .loading::after {

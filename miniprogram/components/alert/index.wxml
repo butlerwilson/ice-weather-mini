@@ -1,4 +1,4 @@
-<view class="alert-container" style="background-color: {{backgroundColor}};">
+<view class="alert-container alert-class" style="background-color: {{backgroundColor}};">
   <!-- 描述 -->
   <view
     style="color: {{backgroundColor==='#fff'|| backgroundColor === 'rgb(255,255,255)'?'#000':'#fff'}}"
