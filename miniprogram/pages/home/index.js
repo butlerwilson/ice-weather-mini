@@ -91,7 +91,7 @@ Page({
 
         Weather.aqi = {
           value: aqi.aqi,
-          pubtime: new Date(aqi.pubTime).format('yyyy-MM-dd hh:mm:ss'),
+          pubTime: new Date(aqi.pubTime).format('yyyy-MM-dd hh:mm:ss'),
           category: aqi.category,
           components: pollutions,
         };
