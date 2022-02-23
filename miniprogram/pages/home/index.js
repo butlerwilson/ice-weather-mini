@@ -92,7 +92,7 @@ Page({
 
         Weather.aqi = {
           value: aqi.aqi,
-          pubtime: new Date(aqi.pubTime).format('yyyy-MM-dd hh:mm:ss'),
+          pubTime: new Date(aqi.pubTime).format('yyyy-MM-dd hh:mm:ss'),
           category: aqi.category,
           components: pollutions,
         };
@@ -106,7 +106,7 @@ Page({
           Weather.precipitation = res.precipitation;
           Weather.precipitation.options = getRainConfig(); // 获取降雨图配置
           const data = Weather.precipitation.options.series[0].data;
-          
+
           Weather.precipitation.minutely.forEach(e => {
             const precip = parseFloat(e.precip); // 和风天气返回的是字符串
             e.precip = precip;
