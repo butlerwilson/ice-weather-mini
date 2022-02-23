@@ -1,5 +1,0 @@
-.view {
-  height: 100vh;
-  width: 100vw;
-  background-color: rgb(245, 208, 162);
-}
