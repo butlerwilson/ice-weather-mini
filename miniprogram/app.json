@@ -1,11 +1,10 @@
 {
     "pages": [
         "pages/home/index",
-        "pages/like/index",
-        "pages/setting/index",
         "pages/aqi/index",
         "pages/warn/index"
     ],
+    "lazyCodeLoading": "requiredComponents",
     "usingComponents": {
         "nav-bar": "/components/navbar/index",
         "card": "/components/card/index",
