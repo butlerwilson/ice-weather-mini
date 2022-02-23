@@ -1,7 +1,7 @@
 <!-- 天气预警页面 -->
 
 <nav-bar
-  navLeftIcon="left"
+  navLeftIcon="back"
   navTitle="预警详情"
   bind:left="back"
   textColor="{{color === '#fff'? '#000': '#fff'}}"

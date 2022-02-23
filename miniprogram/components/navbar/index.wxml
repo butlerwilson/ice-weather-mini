@@ -11,7 +11,7 @@
         wx:if="{{navLeftIcon}}"
         bindtap="left"
         color="{{textColor}}"
-        size="{{25}}"
+        size="{{18}}"
       />
       <common
         class="nav-icon"
