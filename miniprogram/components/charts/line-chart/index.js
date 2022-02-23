@@ -7,8 +7,8 @@ Component({
     height: String,
     options: Object,
   },
-  observers: {
-    width() {
+  lifetimes: {
+    ready() {
       this.draw(this.data.options);
     },
   },

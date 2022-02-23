@@ -123,7 +123,8 @@
 .precip-summary {
   border-radius: 5px;
   padding: 0.5em;
-  background-color: #eef;
+  background-color: #f4f5f5;
+  margin-top: 0.5em;
 }
 
 .hours-item,

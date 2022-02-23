@@ -12,150 +12,137 @@ export class Line extends Canvas {
     super(chart);
   }
 
-  /**
-   * 初始化图表
-   * @param {Object} option
-   * option = {
-   *    textStyle: {
-   *       color: '#fff',
-   *       fontSize: '10px',
-   *       fontFamily: 'Microsoft YaHei',
-   *       textAlign: 'center',
-   *    },
-   *    series: [
-   *      {
-   *        data: [820, 932, 901, 934, 1290, 1330, 1320],
-   *        smooth: true,
-   *        label: {
-   *           show: true,
-   *           formatter: '{d}°',
-   *           position: 'top',
-   *        },
-   *        lineStyle: {
-   *           width: 3,
-   *           color: '#abdcffa',
-   *           backgroundColor: 'rgba(171,220,255,0.9)',
-   *        },
-   *      }, { .. }
-   *    ]
-   * };
-   */
   init(options) {
-    this.option = options;
     const series = options.series;
+    const textStyle = options.textStyle;
+    // 横纵坐标数据
+    this.XAxis = options.XAxis;
+    this.YAxis = options.YAxis;
+
+    // 字体大小
+    const fontSize = textStyle?.fontSize || 14;
+    // 字体类型
+    const fontFamily = textStyle?.fontFamily || 'monospace';
+    // 设置画布字体
+    this.ctx.font = `${fontSize}px ${fontFamily}`;
+    // 设置字体对齐
+    this.ctx.textAlign = textStyle?.textAlign || 'center';
 
     let data = [],
       maxLength = 0;
+
     series.forEach(el => {
       if (el.data instanceof Array) {
         data.push(el.data);
-
-        // 获取每组数据长度最大的那个长度
-        if (maxLength < el.data.length) {
-          maxLength = el.data.length;
-        }
+        if (el.data.length > maxLength) maxLength = el.data.length;
       }
     });
 
-    this.Max = Math.max(...data.flat()); // 最大值
-    this.Min = Math.min(...data.flat()); // 最小值
+    let Max = this.YAxis[0].value * 1.2; // 纵坐标最大值
+    let dataMax = Math.max(...data.flat());
 
-    // 把 canvas 的宽度, 高度按一定规则平分
-    this.startX = this.width / (maxLength * 2); // 起始点的横坐标 X
-    this.baseY = this.height * 0.8; // 基线纵坐标 Y
-    this.diffX = this.width / maxLength; // 每个元素的宽度差
-    this.diffY = (this.height * 0.6) / (this.Max - this.Min); // 高度预留 0.2 写标签
+    if (dataMax > Max) {
+      // 如果数据比给定的最大值大
+      Max = dataMax * 1.2;
+    }
 
-    const textStyle = options.textStyle;
-    this.ctx.textAlign = textStyle?.textAlign || 'center';
-    this.ctx.font = `${textStyle?.fontSize || '14px'} ${
-      textStyle?.fontFamily || 'monospace'
-    }`;
+    this.Max = Max;
+    // 起始点的横坐标 X
+    this.startX = 0;
+    // 基线的纵坐标 Y (留给横坐标文字 1.1 倍字体空间)
+    this.baseY = this.height - fontSize * 1.1;
+    // 每个点所占有的宽度
+    // 这里由于起始点 starX=0
+    // 为了让末尾的点出现在 this.width 处, 所以 maxLength - 1
+    this.diffX = this.width / (maxLength - 1);
+    // 单位长度占据的高度
+    this.diffY = this.baseY / Max;
 
     // 开始绘图
+
+    // 绘制坐标轴网格
+    this.drawAxisGrid();
+
+    // 绘制曲线
     series.forEach(el => {
       if (el.data instanceof Array) {
-        if (el.smooth) {
-          // 曲线图
-          const path = this.createBezierLine(el);
-          this.drawLine(path, el);
-        } else {
-          // 折线图
-          const path = this.createBrokenLine(el);
-          this.drawLine(path, el);
-        }
+        const path = this.createBezierLine(el);
+        this.drawBackground(path, el); // 背景
       }
     });
+
+    // 绘制坐标轴
+    this.drawAxis();
+
+    console.log(this);
   }
 
-  // 绘制
-  drawLine(path, el) {
-    const { data, label, lineStyle } = el;
+  // 绘制坐标网格
+  drawAxisGrid() {
+    // 纵向分成 5 段
+    const diffY = this.baseY / 5;
+    // 横向分成给定坐标个数
+    let num;
+    if (this.XAxis instanceof Array) {
+      num = this.XAxis.length - 1;
+    } else {
+      num = 4;
+    }
+    this.AxisDiffX = this.width / num;
 
-    this.drawBackground(path, el); // 背景
-
+    // 开始绘制
     this.ctx.beginPath();
+    this.ctx.strokeStyle = '#C0C4CC';
+    this.ctx.setLineDash([5, 5]);
 
-    this.ctx.lineWidth = lineStyle?.width || 3;
-    this.ctx.strokeStyle = lineStyle?.color || '#ABDCFF';
-
-    this.ctx.stroke(path);
-
-    this.drawLabel(data, label); // 标签
-    this.drawDots(data, el); // 小圆点
-  }
-
-  // 绘制标签
-  drawLabel(data, label) {
-    this.ctx.fillStyle = '#000'; // 标签默认黑色
-
-    let position; // 标签位置
-    if (label?.position === 'top' || typeof label?.position === 'undefined') {
-      position = 10;
-    } else if (label?.position === 'bottom') {
-      position = -parseInt(/\d*/g.exec(this.ctx.font)[0]) - 2;
+    // 横向网络
+    for (let i = 0; i <= 5; i++) {
+      const y = i * diffY;
+      this.ctx.moveTo(0, y);
+      this.ctx.lineTo(this.width, y);
     }
 
-    if (label?.show && label?.formatter) {
-      // 存在 formatter 时
-      data.forEach((e, i) => {
-        const x = this.startX + this.diffX * i,
-          y = this.baseY - (e - this.Min) * this.diffY;
-
-        this.ctx.fillText(
-          label.formatter.replace(/\{d\}/i, e),
-          x,
-          y - position
-        );
-      });
-    } else if (label?.show) {
-      // 不存在 formmater 时
-      data.forEach((e, i) => {
-        const x = this.startX + this.diffX * i,
-          y = this.baseY - (e - this.Min) * this.diffY;
-
-        this.ctx.fillText(e, x, y - position);
-      });
+    // 纵向网络
+    for (let i = 0; i <= num; i++) {
+      const x = i * this.AxisDiffX;
+      this.ctx.moveTo(x, 0);
+      this.ctx.lineTo(x, this.baseY);
     }
+
+    this.ctx.stroke();
   }
 
-  // 画折线图小圆点
-  drawDots(data, el) {
-    const { dots } = el;
+  // 绘制坐标轴
+  drawAxis() {
     this.ctx.beginPath();
-
-    data.forEach((e, i) => {
-      const x = this.startX + this.diffX * i,
-        y = this.baseY - (e - this.Min) * this.diffY;
-
-      this.ctx.moveTo(x, y);
-      this.ctx.arc(x, y, 3, 0, 2 * Math.PI);
+    // 绘制横坐标标识线及文字
+    this.ctx.strokeStyle = '#606266';
+    this.ctx.textAlign = 'left';
+    this.ctx.textBaseline = 'bottom';
+    this.ctx.fillStyle = '#606266';
+    this.YAxis.forEach(e => {
+      const y = this.baseY - e.value * this.diffY;
+      this.ctx.moveTo(0, y);
+      this.ctx.fillText(e.name, 0, y);
+      this.ctx.lineTo(this.width, y);
     });
-    this.ctx.fillStyle = dots?.color || '#0396FF';
-    this.ctx.fill();
+
+    this.ctx.stroke();
+
+    // 绘制横坐标文字
+    this.XAxis.forEach((e, index) => {
+      if (index === 0) {
+        this.ctx.textAlign = 'left';
+      } else if (index === this.XAxis.length - 1) {
+        this.ctx.textAlign = 'right';
+      } else {
+        this.ctx.textAlign = 'center';
+      }
+      this.ctx.fillText(e, index * this.AxisDiffX, this.height);
+    });
   }
 
-  // 画折线图背景
+  // 画曲线图背景
   drawBackground(path, el) {
     const { lineStyle } = el;
 
@@ -163,14 +150,12 @@ export class Line extends Canvas {
       const { data } = el;
       const path_ = this.canvas.createPath2D(path);
 
-      path_.lineTo(this.startX + (data.length - 1) * this.diffX, this.baseY); // 基线终点
-      path_.lineTo(this.startX, this.baseY); // 基线起点
+      // 基线终点
+      path_.lineTo(this.startX + (data.length - 1) * this.diffX, this.baseY);
+      // 基线起点
+      path_.lineTo(this.startX, this.baseY);
 
-      const lingrad = this.ctx.createLinearGradient(0, 0, 0, this.height);
-      lingrad.addColorStop(0, lineStyle.backgroundColor);
-      lingrad.addColorStop(1, 'rgba(255,255,255,0)');
-      this.ctx.fillStyle = lingrad;
-
+      this.ctx.fillStyle = lineStyle.backgroundColor;
       this.ctx.fill(path_);
     }
   }
@@ -213,31 +198,31 @@ export class Line extends Canvas {
     const { data } = el;
     const path = this.canvas.createPath2D();
 
-    const { startX, baseY, Min, diffY, diffX } = this;
+    const { startX, baseY, diffY, diffX } = this;
 
-    path.moveTo(this.startX, this.baseY - (data[0] - this.Min) * this.diffY);
+    path.moveTo(this.startX, this.baseY - data[0] * this.diffY);
 
     data.forEach((e, i) => {
       let curPoint, prePoint, nextPoint1, nextPoint2, x, y;
 
       // 当前点
       x = startX + diffX * i;
-      y = baseY - (e - Min) * diffY;
+      y = baseY - e * diffY;
       curPoint = new Point(x, y);
 
       // 前一个点
       x = startX + diffX * (i - 1);
-      y = baseY - (data[i - 1] - Min) * diffY;
+      y = baseY - data[i - 1] * diffY;
       prePoint = new Point(x, y);
 
       // 下一个点
       x = startX + diffX * (i + 1);
-      y = baseY - (data[i + 1] - Min) * diffY;
+      y = baseY - data[i + 1] * diffY;
       nextPoint1 = new Point(x, y);
 
       // 下下个点
       x = startX + diffX * (i + 2);
-      y = baseY - (data[i + 2] - Min) * diffY;
+      y = baseY - data[i + 2] * diffY;
       nextPoint2 = new Point(x, y);
 
       if (i === 0) {
@@ -266,20 +251,6 @@ export class Line extends Canvas {
         nextPoint1.x,
         nextPoint1.y
       );
-    });
-
-    return path;
-  }
-
-  // 创建折线路径
-  createBrokenLine(el) {
-    const { data } = el;
-    const path = this.canvas.createPath2D();
-    data.forEach((e, i) => {
-      const x = this.startX + this.diffX * i,
-        y = this.baseY - (e - this.Min) * this.diffY;
-
-      path.lineTo(x, y);
     });
 
     return path;

@@ -1,6 +1,6 @@
 import qweather from '../../utils/weather/qweather';
 import openWeather from '../../utils/weather/openweather';
-import option from './rain';
+import getRainConfig from './rain';
 import Pollutions from '../aqi/pollutions';
 import Waring from '../../utils/weather/waring';
 import uuid from '../../utils/uuid';
@@ -32,7 +32,7 @@ Page({
     //   .catch(err => {
     //     console.log(`获取用户位置时出错, 原因: ${err.errMsg}`);
     //   });
-    this.getQweather('123');
+    this.getQweather('110,20');
 
     // 获取状态栏高度
     const { navHeight, statusBarHeight } = app.globalData;
@@ -99,12 +99,18 @@ Page({
 
         // 降水
         const minutely = res.precipitation.minutely;
-        const prec = minutely.every(e => e === '0.0');
+        const prec = minutely.every(e => e.precip === '0.0');
+
         if (!prec) {
           // 如果存在降雨
           Weather.precipitation = res.precipitation;
+          Weather.precipitation.options = getRainConfig(); // 获取降雨图配置
+          const data = Weather.precipitation.options.series[0].data;
+          
           Weather.precipitation.minutely.forEach(e => {
-            e.precip = parseFloat(e.precip); // 和风天气返回的是字符串
+            const precip = parseFloat(e.precip); // 和风天气返回的是字符串
+            e.precip = precip;
+            data.push(precip); // 传入降雨数据
           });
         }
 
