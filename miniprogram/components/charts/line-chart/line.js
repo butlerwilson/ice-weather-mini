@@ -73,8 +73,6 @@ export class Line extends Canvas {
 
     // 绘制坐标轴
     this.drawAxis();
-
-    console.log(this);
   }
 
   // 绘制坐标网格

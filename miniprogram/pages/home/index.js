@@ -20,19 +20,18 @@ Page({
   },
   onLoad() {
     // 获取天气信息
-    // wx.getLocation({
-    //   type: 'wgs84',
-    // })
-    //   .then(res => {
-    //     const latitude = res.latitude;
-    //     const longitude = res.longitude;
-    //     const location = `${longitude},${latitude}`;
-    //     this.getQweather(location);
-    //   })
-    //   .catch(err => {
-    //     console.log(`获取用户位置时出错, 原因: ${err.errMsg}`);
-    //   });
-    this.getQweather('110,20');
+    wx.getLocation({
+      type: 'wgs84',
+    })
+      .then(res => {
+        const latitude = res.latitude;
+        const longitude = res.longitude;
+        const location = `${longitude},${latitude}`;
+        this.getQweather(location);
+      })
+      .catch(err => {
+        console.log(`获取用户位置时出错, 原因: ${err.errMsg}`);
+      });
 
     // 获取状态栏高度
     const { navHeight, statusBarHeight } = app.globalData;
