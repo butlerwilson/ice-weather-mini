@@ -1,10 +1,4 @@
-<nav-bar
-  navLeftIcon="back"
-  navTitle="空气质量指数"
-  bind:left="back"
-  textColor="#000"
-  backgroundColor="hsla(0, 0%, 100%, 0.75)"
-/>
+<nav-bar navLeftIcon="back" navTitle="空气质量指数" bind:left="back" textColor="#000" />
 
 <scroll-view
   class="aqi-info-container"
@@ -16,7 +10,7 @@
   <!-- AQI 指数进度条 -->
   <view class="aqi-progress">
     <semicircle-progress options="{{options}}"></semicircle-progress>
-    <view class="iconfont tip" bindtap="popTip"></view>
+    <common name="tip" class="tip" bindtap="popTip" size="20"></common>
   </view>
   <view class="label">污染物</view>
   <view class="updateTime-label">发布时间: {{aqi.pubTime}}</view>
@@ -30,7 +24,7 @@
       max="{{item.max}}"
     />
   </view>
-  
+
   <view wx:if="{{hours}}">
     <view class="label">小时预报</view>
     <!-- 小时预报可滚动柱状图 -->
@@ -50,7 +44,7 @@
     <view class="desc">
       <view wx:for="{{desc}}" wx:key="name">
         <view class="desc-title">
-          <iconfont name="{{item.icon}}" />
+          <aqi name="{{item.icon}}" />
           <view>{{item.name}}: {{item.scope}}</view>
         </view>
         <view>{{item.desc}}</view>
