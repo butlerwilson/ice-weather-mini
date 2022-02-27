@@ -1,5 +1,11 @@
 <!-- 导航栏 -->
-<nav-bar backgroundColor="{{navBgColor}}" />
+<nav-bar
+  navLeftIcon="cites"
+  navTitle="{{city}}"
+  subTitle="{{address}}"
+  bind:left="cites"
+  backgroundColor="{{navBgColor}}"
+/>
 
 <!-- 天气背景图 -->
 <view class="weather-bg"></view>

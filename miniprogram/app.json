@@ -2,7 +2,9 @@
     "pages": [
         "pages/home/index",
         "pages/aqi/index",
-        "pages/warn/index"
+        "pages/warn/index",
+        "pages/like/index",
+        "pages/search/index"
     ],
     "lazyCodeLoading": "requiredComponents",
     "usingComponents": {
@@ -12,6 +14,7 @@
         "qweather": "/assets/icons/qweather/qweather",
         "life": "/assets/icons/life/life",
         "common": "/assets/icons/common/common",
+        "aqi": "/assets/icons/aqi/aqi",
         "loading": "/components/loading/index"
     },
     "window": {

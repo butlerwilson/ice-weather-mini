@@ -1,5 +1,5 @@
-import { getAqiColor } from './aqi';
-import tip from './tip';
+import { getAqiColor } from './tools/aqi';
+import tip from './tools/tip';
 
 Page({
   data: {

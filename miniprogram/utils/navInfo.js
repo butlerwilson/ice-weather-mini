@@ -13,11 +13,13 @@ export function getNavBarInfo() {
 
   let capsuleTop = capsuleInfo.top;
   let capsuleBottom = capsuleInfo.bottom;
+  let capsuleLeft = capsuleInfo.left;
 
   let navHeight = capsuleBottom + capsuleTop - 2 * statusBarHeight; // 导航栏高度
 
   return {
     navHeight, // 导航栏高度
     statusBarHeight, // 状态栏高度
+    capsuleLeft, // 胶囊左边位置
   };
 }
