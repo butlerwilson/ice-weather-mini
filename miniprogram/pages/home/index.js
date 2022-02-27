@@ -1,7 +1,5 @@
-import qweather from '../../utils/weather/qweather';
-import openWeather from '../../utils/weather/openweather';
 import getRainConfig from './rain';
-import Pollutions from '../aqi/pollutions';
+import Pollutions from '../aqi/tools/pollutions';
 import Waring from '../../utils/weather/waring';
 import uuid from '../../utils/uuid';
 
@@ -12,42 +10,63 @@ Page({
     navBgColor: 'transparent', // 导航栏颜色
     paddingTop: 0,
     city: '正在定位...', // 当前城市
-    exactLocation: '', // 详细城市
+    address: '', // 详细城市
     isReady: false, // 天气信息是否加载完毕
     average: 0, // 平均值
     deltaTemp: 0, // 温度最大最小值差
     unit: '°', // 温度单位
   },
-  onLoad() {
-    // 获取天气信息
-    // wx.getLocation({
-    //   type: 'wgs84',
-    // })
-    //   .then(res => {
-    //     const latitude = res.latitude;
-    //     const longitude = res.longitude;
-    //     const location = `${longitude},${latitude}`;
-    //     this.getQweather(location);
-    //   })
-    //   .catch(err => {
-    //     console.log(`获取用户位置时出错, 原因: ${err.errMsg}`);
-    //   });
-    this.getQweather('110,20');
-
+  onLoad(options) {
     // 获取状态栏高度
     const { navHeight, statusBarHeight } = app.globalData;
+    this.setData({ paddingTop: navHeight + statusBarHeight });
 
-    this.setData({
-      paddingTop: navHeight + statusBarHeight,
-    });
+    // 如果当前页面是跳转过来的
+    if (options.lat && options.lon) {
+      const city = options.name;
+      const location = `${options.lon},${options.lat}`;
+      this.getQweather(location, {
+        city,
+        address: typeof options.address !== 'undefined' ? options.address : '',
+        isCurrent: false,
+      });
+    } else if (options.isCurrent) {
+      const key = app.globalData.currentLocationUuid;
+      const Weather = app.globalData[key];
+
+      this.setData({
+        isReady: true,
+        ...Weather,
+      });
+    } else {
+      // 如果当前页面是直接进入
+      // 获取位置信息
+      app.globalData.qqMap
+        .addressInfo()
+        .then(res => {
+          const { latitude, longitude, address, city } = res;
+          this.getQweather(`${longitude},${latitude}`, {
+            city,
+            address,
+            isCurrent: true,
+          });
+        })
+        .catch(err => {
+          console.error(`获取位置信息出错, 原因: ${err.message}`);
+        });
+    }
   },
-  getQweather(location) {
+  getQweather(location, kwargs) {
     // 获取天气
-    // qweather.setMockStatus(false);
-    qweather
+    // app.globalData.qweather.setMockStatus(false);
+    app.globalData.qweather
       .getAllweather(location)
       .then(res => {
         const Weather = {}; // 天气对象
+
+        // 城市信息
+        Weather.city = kwargs.city;
+        Weather.address = kwargs.address;
 
         // 当前天气
         const now = res.now;
@@ -136,10 +155,10 @@ Page({
           minTemps.push(day.tempMin);
         });
 
-        const average = temp / (Weather.days.length * 2); // 温度平均值
+        Weather.average = temp / (Weather.days.length * 2); // 温度平均值
         const tempMax = Math.max(...maxTemps);
         const tempMin = Math.min(...minTemps);
-        const deltaTemp = tempMax - tempMin; // 最高温度与最低温度之差
+        Weather.deltaTemp = tempMax - tempMin; // 最高温度与最低温度之差
 
         // 生活指数
         Weather.livingIndices = [...res.livingIndices];
@@ -169,28 +188,31 @@ Page({
 
         // 将天气对象绑定到 globalData 上去
         const key = uuid();
+        Weather.uuid = key; // 方便挂载到当前页面
         app.globalData[key] = Weather;
 
+        if (kwargs.isCurrent) {
+          // 仅保存当前位置天气的 uuid
+          app.globalData.currentLocationUuid = key;
+        }
+
         this.setData({
-          average,
-          deltaTemp,
           isReady: true,
           ...Weather,
-          uuid: key, // 当前页面天气对象的 uuid
         });
       })
       .catch(err => {
-        console.log(`天气请求时出现错误, 详情: ${err}`);
+        console.log(err);
+        wx.showToast({
+          title: err,
+          icon: 'none',
+          duration: 2000,
+        });
       });
-  },
-  setting() {
-    wx.navigateTo({
-      url: '../like/index',
-    });
   },
   cites() {
     wx.navigateTo({
-      url: '../setting/index',
+      url: '../like/index',
     });
   },
   aqiPage() {
