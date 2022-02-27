@@ -2,11 +2,13 @@ const app = getApp();
 
 Component({
   properties: {
-    textColor: { // 字体颜色
+    textColor: {
+      // 字体颜色
       type: String,
       value: '#fff',
     },
-    backgroundColor: { // 背景色
+    backgroundColor: {
+      // 背景色
       type: String,
       value: 'transparent',
     },
@@ -22,8 +24,8 @@ Component({
 
   lifetimes: {
     ready() {
-      const { navHeight, statusBarHeight } = app.globalData;
-      this.setData({ navHeight, statusBarHeight });
+      const { navHeight, statusBarHeight, capsuleLeft } = app.globalData;
+      this.setData({ navHeight, statusBarHeight, navWidth: capsuleLeft });
     },
   },
 

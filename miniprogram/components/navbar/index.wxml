@@ -2,7 +2,7 @@
   class="nav-bar-container"
   style="padding-top:{{statusBarHeight}}px; color: {{textColor}}; background-color: {{backgroundColor}};"
 >
-  <view class="nav-bar" style="height: {{navHeight}}px">
+  <view class="nav-bar" style="height: {{navHeight}}px;width: {{navWidth}}px">
     <!-- 导航栏左边图标 -->
     <view class="nav-icon-container">
       <common
@@ -11,15 +11,13 @@
         wx:if="{{navLeftIcon}}"
         bindtap="left"
         color="{{textColor}}"
-        size="{{18}}"
       />
       <common
         class="nav-icon"
         name="{{navRightIcon}}"
         wx:if="{{navRightIcon}}"
         bindtap="right"
-        color="{{textColor}}"
-        size="{{25}}"
+        color="{{textColor}}" 
       />
     </view>
     <!-- 导航栏文字 -->

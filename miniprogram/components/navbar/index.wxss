@@ -28,14 +28,28 @@
 /* 导航栏标题 */
 .title {
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
 }
 
 .title > .navTitle {
   font-weight: bold;
+  width: 100%;
+  overflow: hidden;
+  /* 文本不换行 */
+  white-space: nowrap;
+  /* 超出显示省略号 */
+  text-overflow: ellipsis;
 }
 
 .title > .subTitle {
   font-size: 0.6em;
+  width: 100%;
+  overflow: hidden;
+  /* 文本不换行 */
+  white-space: nowrap;
+  /* 超出显示省略号 */
+  text-overflow: ellipsis;
 }
