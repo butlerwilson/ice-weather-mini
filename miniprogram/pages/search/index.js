@@ -36,7 +36,7 @@ Page({
     const longitude = loc.lng;
     const name = loc.name;
 
-    wx.redirectTo({
+    wx.reLaunch({
       url: `../home/index?lat=${latitude}&lon=${longitude}&name=${name}`,
     });
   },
@@ -49,7 +49,7 @@ Page({
     const longitude = loc.lon;
     const name = `${loc.adm1}-${loc.name}`;
 
-    wx.redirectTo({
+    wx.reLaunch({
       url: `../home/index?lat=${latitude}&lon=${longitude}&name=${name}`,
     });
   },
@@ -85,7 +85,7 @@ Page({
           const name = res.name;
           const address = res.address;
 
-          wx.redirectTo({
+          wx.reLaunch({
             url: `../home/index?lat=${latitude}&lon=${longitude}&name=${name}&address=${address}`,
           });
         }
@@ -96,7 +96,7 @@ Page({
   },
   // 当前城市
   current() {
-    wx.redirectTo({
+    wx.reLaunch({
       url: '../home/index?isCurrent=true',
     });
   },
