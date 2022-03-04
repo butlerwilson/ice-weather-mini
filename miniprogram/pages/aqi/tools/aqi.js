@@ -28,8 +28,8 @@ export default class Aqi {
     desc: '易感人群症状有轻度加剧, 健康人群出现刺激症状',
     name: '轻度污染',
     icon: 'lightly',
-    max: 101,
-    min: 150,
+    max: 150,
+    min: 101,
   };
 
   // 中度污染
