@@ -61,20 +61,22 @@
         <view class="title">小时概述</view>
         <scroll-view scroll-x class="scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
           <view class="hours">
-            <view
-              class="hours-item"
-              hover-class="hours-item-hover"
-              wx:for="{{hours}}"
-              wx:key="index"
-            >
+            <view class="hours-item" wx:for="{{hours}}" wx:key="index">
               <!-- 天气时间 -->
               <view class="hours-time">{{item.time}}</view>
               <!-- 天气图标 -->
               <qweather name="{{item.icon}}" class="hours-icon" />
-              <!-- 天气情况 -->
-              <view class="hours-desc">{{item.text}}</view>
               <!-- 温度 -->
               <view class="hours-temp">{{item.temp}}</view>
+              <!-- 天气情况 -->
+              <view class="hours-desc">{{item.text}}</view>
+              <!-- 风况 -->
+              <view class="hours-wind">
+                <view class="wind-icon" style="transform: rotate({{item.wind360}}deg);">
+                  <common name="arrow" color="#FCCF31" size="25"/>
+                </view>
+                <view>{{item.windScale}}级</view>
+              </view>
             </view>
           </view>
         </scroll-view>
@@ -86,7 +88,7 @@
         <view class="title">逐日概述</view>
         <scroll-view scroll-x class="scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
           <view class="days">
-            <view class="days-item" hover-class="days-item-hover" wx:for="{{days}}" wx:key="index">
+            <view class="days-item" wx:for="{{days}}" wx:key="index">
               <!-- 星期 -->
               <view class="days-week">{{item.weekday}}</view>
               <!-- 几号 -->

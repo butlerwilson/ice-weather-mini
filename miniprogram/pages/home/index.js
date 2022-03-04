@@ -58,7 +58,7 @@ Page({
   },
   getQweather(location, kwargs) {
     // 获取天气
-    // app.globalData.qweather.setMockStatus(false);
+    app.globalData.qweather.setMockStatus(false);
     app.globalData.qweather
       .getAllweather(location)
       .then(res => {
@@ -204,7 +204,7 @@ Page({
       .catch(err => {
         console.log(err);
         wx.showToast({
-          title: err,
+          title: err.errMsg,
           icon: 'none',
           duration: 2000,
         });
