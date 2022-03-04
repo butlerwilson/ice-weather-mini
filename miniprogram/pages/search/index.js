@@ -13,7 +13,11 @@ Page({
   },
   onLoad: function () {
     const app = getApp();
-    const { navHeight, statusBarHeight, currentLocationUuid } = app.globalData;
+    const {
+      navHeight,
+      statusBarHeight,
+      currentLocationUuid
+    } = app.globalData;
     const cities = suggestions();
 
     this.setData({
@@ -57,6 +61,7 @@ Page({
   getInput(e) {
     const value = e.detail.value;
     if (value !== '') {
+      app.globalData.Geo.setMockStatus(false);
       app.globalData.Geo.getCityList(value)
         .then(res => {
           this.setData({
@@ -66,7 +71,7 @@ Page({
         })
         .catch(err => {
           wx.showToast({
-            title: err,
+            title: err.errMsg,
             icon: 'none',
             duration: 2000,
           });
@@ -91,7 +96,7 @@ Page({
         }
       })
       .catch(err => {
-        console.error(`地图选点失败, 原因: ${err}`);
+        console.error(`地图选点失败, 原因: ${err.errMsg}`);
       });
   },
   // 当前城市

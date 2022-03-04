@@ -136,11 +136,6 @@
   padding: 0.2em 0;
 }
 
-.hours-item-hover,
-.days-item-hover {
-  background-color: rgb(0, 0, 0, 0.1);
-}
-
 .days-time {
   margin: 0.5em 0;
   color: #909399;
@@ -151,8 +146,21 @@
 }
 
 .hours-temp {
-  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
+
+/* 风况 */
+.hours-wind {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wind-icon {
+  margin: 0.5em 0;
+}
+
 
 /* 日月生落 */
 .title-container {

@@ -1,6 +1,6 @@
 Component({
   properties: {
-    // location | search | add | moon | sun | quote | feng | drop | laba | vis | kite | close | back | clock | leaf | tip | pressure | setting | cites | enter
+    // arrow | location | search | add | moon | sun | quote | feng | drop | laba | vis | kite | close | back | clock | leaf | tip | pressure | setting | cites | enter
     name: {
       type: String,
     },
